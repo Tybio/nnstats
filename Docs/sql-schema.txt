@@ -1,0 +1,5 @@
+categoryID	:	where we store the categoryID from newznab for the section to be analyzed.
+categoryname	:	the "nice" name for the category we are analyzing
+updatedate	:	timestamp for updated stat
+ppqcount	:	current Post Processing Queue count 
+nullnfo		:	current quantity of NFO files remaining null/releases without NFOs fetched.
