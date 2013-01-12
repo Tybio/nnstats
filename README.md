@@ -6,15 +6,21 @@ Stats package for Newznab
 Stats to track:
 
 Releases waiting for:
-	* PostProcessing
-	* nfo Download
-	* import
+	<ul>
+	<li> PostProcessing
+	<li>nfo Download
+	<li> import
+	</ul>
 
 Stats:
-	* Total Releases
-	* Releases by category
-	* Releases with scraped info (IMDB/TVRage etc)
+	<ul>
+	<li> Total Releases
+	<li> Releases by category
+	<li> Releases with scraped info (IMDB/TVRage etc)
+	</ul>
 
 Users:
-	* API Hits
-	* NZB grabs (By category if possible)
+	<ul>
+	<li> API Hits
+	<li> NZB grabs (By category if possible)
+	</ul>
