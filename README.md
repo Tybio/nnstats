@@ -1,6 +1,13 @@
 nnstats
 =======
 
+Install:  DON'T!
+
+When released, clone this github into your testing directory.
+
+cd $NNBASE/misc/testing
+git clone https://github.com/Tybio/nnstats.git
+
 Stats package for Newznab
 
 Stats to track:
