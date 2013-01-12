@@ -7,16 +7,11 @@ Stats to track:
 
 Releases waiting for:
 	<ul>
-	<li> PostProcessing
-	<li>nfo Download
-	<li> import
-	</ul>
-
-Stats:
-	<ul>
 	<li> Total Releases
 	<li> Releases by category
-	<li> Releases with scraped info (IMDB/TVRage etc)
+	<li> PostProcessing
+	<li> nfo Download
+	<li> import
 	</ul>
 
 Users:
