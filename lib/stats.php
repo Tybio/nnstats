@@ -36,9 +36,9 @@ class Stats {
 		$NNQ['ppq']['count']['movie'] = 'SELECT COUNT(id) FROM `releasenfo` WHERE `nfo` IS NULL AND `attempts` <= 3';
 
 		// Table Size
-		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `releases`';
-		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `parts`';
-		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `binaries`';
+		$NNQ['tablerows']['count']['releases'] = 'SELECT COUNT(id) FROM `releases`';
+		$NNQ['tablerows']['count']['parts'] = 'SELECT COUNT(id) FROM `parts`';
+		$NNQ['tablerows']['count']['binaries'] = 'SELECT COUNT(id) FROM `binaries`';
 
 		return $NNQ;
 	}
@@ -63,9 +63,10 @@ class Stats {
 	private function getType($type, $data) {
 		$NNQ = $this->getSQL();
 		$list = $NNQ[$type][$data];
-		$db = new DB();
 		foreach ( $list as $key => $i) {
+			$db = new DB();
 			$dbo = $db->query($i);
+			$dump[$key] = $dbo;
 		}
 		$out = $this->cleanArray($dump);
 		return $out;
