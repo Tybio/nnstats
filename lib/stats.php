@@ -50,13 +50,11 @@ class Stats {
 	}
 
 	private function getID($type, $data, $id) {
-			$sql = $NNQ[$type][$data][$id];
-			$db = new DB();
-			$dbo = $db->query($sql);
-			return $dbo['0']['COUNT(id)'];
-		} else {
-			return false;
-		}
+		$sql = $NNQ[$type][$data][$id];
+		if ( empty($sql) ) { return false; }
+		$db = new DB();
+		$dbo = $db->query($sql);
+		return $dbo['0']['COUNT(id)'];
 	}
 
 	private function getType($type, $data) {
