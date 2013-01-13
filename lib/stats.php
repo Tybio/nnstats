@@ -39,6 +39,8 @@ class Stats {
 		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `releases`';
 		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `parts`';
 		$NNQ['tablerows']['count']['movie'] = 'SELECT COUNT(id) FROM `binaries`';
+
+		return $NNQ;
 	}
 
 	public function getStats($type, $data, $id = 'ALL' ) {
@@ -50,6 +52,7 @@ class Stats {
 	}
 
 	private function getID($type, $data, $id) {
+		$NNQ = $this->getSQL();
 		$sql = $NNQ[$type][$data][$id];
 		if ( empty($sql) ) { return false; }
 		$db = new DB();
@@ -58,6 +61,7 @@ class Stats {
 	}
 
 	private function getType($type, $data) {
+		$NNQ = $this->getSQL();
 		$list = $NNQ[$type][$data];
 		$db = new DB();
 		foreach ( $list as $key => $i) {
