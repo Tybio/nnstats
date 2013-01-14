@@ -5,31 +5,15 @@ echo "Testing Category functions\n";
 
 $stat = new Stats();
 
-$ret = $stat->getStats('ppq', 'count');
+$pp = $stat->getStats('ppq', 'count');
+$ts = $stat->getStats('trs', 'count');
 
-drawSmallTable($ret);
+$out1 = $stat->smallTable('ppq', $pp);
+$out2 = $stat->smallTable('trs', $ts);
 
-function drawSmallTable($array) {
-        $i=0;
-	$line = '+'.str_repeat('-', '35').'+';
-	echo "$line\n";
-	foreach ($array as $key => $value) {
-		$number = number_format($value);
-		printf("| %-15s |",   $key );
-		printf(" %-15s |",  $number);
-		echo "\n";
-	}
+foreach ($out1 as $line) {
 	echo "$line\n";
 }
-
-function drawBigTable($array) {
-	$i=0;
-	foreach( $array as $items) {
-		foreach ($items as $key => $value) {
-			if ($i++==0) { printf("[%-10s]|",   $key ); }
-			printf("[%-10s]|",   $value);
-		}
-		echo "\n"; 
-	}
+foreach ($out2 as $line) {
+	echo "$line\n";
 }
-?>
