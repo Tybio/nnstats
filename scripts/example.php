@@ -5,15 +5,13 @@ echo "Testing Category functions\n";
 
 $stat = new Stats();
 
-$pp = $stat->getStats('ppq', 'count');
-$ts = $stat->getStats('trs', 'count');
+$all = $stat->getAllStats();
 
-$out1 = $stat->smallTable('ppq', $pp);
-$out2 = $stat->smallTable('trs', $ts);
+$ret = $stat->saveStats($all);
 
-foreach ($out1 as $line) {
-	echo "$line\n";
-}
-foreach ($out2 as $line) {
-	echo "$line\n";
-}
+//$table = $stat->statTable($all, 'ppq');
+
+//foreach ($table as $line) {
+//	echo "$line\n";
+//}
+?>
