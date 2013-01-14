@@ -3,16 +3,18 @@
 
 	Used to get stats about various newznab processes/status.
 
-	Not all Categories have processing queues, to get a list of supported requests use $stats->getList(<type>);
-
 	Supported types are:
 		count
 		delta
 
-	To get a single value, call $stats->getstats(<type>, <id>);
-	To get an array with all stats for one type, call $stats->getStats(<type>, ALL);
+	*** Untested: To get a single value, call $stats->getStats(<type>, <data>, <id>);
+			eg: $stats->getStats(ppq, count, movie);
+	To get an array with all stats for one type, call $stats->getStats(<type>, <data>);
+			eg: $stats->getStats(ppq, count)
 
-	Stats should always return a single numaric value
+	To format the output, call smallTable with the array:
+			$foo = $stats->getStats(ppq, count);
+			$table = $stats->smallTable($foo);
 
 	This library can reside anywhere, but the script calling it MUST include 
 	  newznabs config.php.
