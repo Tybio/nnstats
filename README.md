@@ -3,6 +3,9 @@ nnstats
 
 Install:  DON'T!
 
+WARNING!  ONLY TESTED WITH THE DEV BRANCH
+If you are not running on dev, be warned!
+
 When released, clone this github into your testing directory.
 
 cd $NNBASE/misc/testing
