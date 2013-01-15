@@ -1,7 +1,7 @@
 <?php
 require(dirname(__FILE__)."/../../../../www/config.php");
 require_once(dirname(__FILE__)."/../lib/stats.php");
-echo "Testing Category functions\n";
+echo "Testing, will get array, print table and save settings\n";
 
 $stat = new Stats();
 
