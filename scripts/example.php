@@ -6,12 +6,12 @@ echo "Testing Category functions\n";
 $stat = new Stats();
 
 $all = $stat->getAllStats();
+//$ret = $stat->saveStats($all);
 
-$ret = $stat->saveStats($all);
+$table = $stat->statTable($all);
 
-//$table = $stat->statTable($all, 'ppq');
-
-//foreach ($table as $line) {
-//	echo "$line\n";
-//}
+foreach ($table as $line) {
+	echo "$line\n";
+}
+$stat->saveStats();
 ?>
