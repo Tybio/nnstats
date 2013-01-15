@@ -225,7 +225,7 @@ class Stats {
 		switch ( $loc ) {
 			case 'sdb':		
 				$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
-				if ( mysqli->connect_error ) { die('DB Connection Failure: '.mysqli->connect_error); }
+				if ( !$sdb ) { die('Connect Error: ' . mysqli_connect_error()); }
 				$sdbo = $sdb->query($sql);
 				$rs = $sdbo->fetch_row();
 				$sdb->close();
