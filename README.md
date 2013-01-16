@@ -6,6 +6,8 @@ Install:  DON'T!
 WARNING!  ONLY TESTED WITH THE DEV BRANCH
 If you are not running on dev, be warned!
 
+As we all work, tracking issues via IRC isn't going to work.  If you have an issue, please update the "Issues" section of this page with the information and THEN ping one of us on IRC
+
 When released, clone this github into your testing directory.
 
 cd $NNBASE/misc/testing
