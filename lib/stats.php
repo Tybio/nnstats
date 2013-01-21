@@ -114,9 +114,8 @@ class Stats {
 		// SQL queries not based on categories
 		$NNQ['ppq']['count']['nfo'] = sprintf("
 							SELECT COUNT(id) 
-							FROM releasenfo 
-								WHERE nfo IS NULL 
-								AND attempts <= 3
+							FROM releases 
+							WHERE releasenfoid = 0
 							");
 		$NNQ['ppq']['last']['nfo'] = sprintf("SELECT total FROM stats WHERE categoryID = %d order by updatedate desc limit 1", '30'); 	
 
@@ -181,8 +180,21 @@ class Stats {
 	}
 	
 
-	public function saveStats() {
-		$array = $this->getAllStats();
+	public function saveStats($array) {
+		//$array = $this->getAllStats();
+		if ( $array['ppq']['count']['nfo'] ) {
+			$item = $array['ppq']['count']['nfo'];
+			$sql = sprintf("
+				INSERT INTO stats
+				( categoryID, categoryname, total, queue )
+				VALUES
+				( '30', 'nfo', '', $item )
+			");
+			$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
+			$sdbo = $sdb->query($sql);
+			//$sdb->free();
+			$sdb->close();
+		}
 		foreach($array['cat']['count'] as $item => $value) {
 			$cat = $this->getCatID($item);
 			$queue = $array['ppq']['count'][$item];
@@ -194,11 +206,13 @@ class Stats {
 			");
 			$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
 			$sdbo = $sdb->query($sql);
+			//$sdb->free();
 			$sdb->close();
 		}	
 		foreach($array['trs']['count'] as $item => $value) {
 			if ( $item === 'releases' ) { $cat = '10'; }
 			if ( $item === 'parts' ) { $cat = '20'; }
+			if ( $item === 'nfo' ) { $cat = '30'; }
 			$sql = sprintf("
 				INSERT INTO stats
 				( categoryID, categoryname, total )
@@ -207,6 +221,7 @@ class Stats {
 			");
 			$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
 			$sdbo = $sdb->query($sql);
+			//$sdb->free();
 			$sdb->close();
 		}
 		$this->cleanStats();
@@ -217,6 +232,7 @@ class Stats {
 		$sql = sprintf("DELETE FROM stats WHERE updatedate < DATE_SUB(NOW(), INTERVAL 1 YEAR)");
 		$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
 		$sdbo = $sdb->query($sql);
+		//$sdb->free();
 		$sdb->close();
 	}
 		
@@ -225,17 +241,24 @@ class Stats {
 		switch ( $loc ) {
 			case 'sdb':		
 				$sdb = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'nnstats', DB_PORT);
-				if ( !$sdb ) { die('Connect Error: ' . mysqli_connect_error()); }
+				if ( !$sdb ) { echo 'Connect Error: ' . mysqli_connect_error(); }
 				$sdbo = $sdb->query($sql);
 				$rs = $sdbo->fetch_row();
+				//$sdb->free();
 				$sdb->close();
 				return $rs[0];
 			case 'nndb':
-				$db = new DB();
+				$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, 'newznab', DB_PORT);
 				$dbo = $db->query($sql);
-				if ( !$dbo ) { die('DB Connection Failure'); } 
-				$rs = $dbo['0']['COUNT(id)'];
-				return $rs;
+				if ( $dbo ) { 
+					$rs = $dbo->fetch_row();
+					//$db->free();
+					$db->close();
+					return $rs[0];
+				} else {
+					echo 'DB Connection Failure'; 
+					return;
+				}
 			default:
 				die('Bad call to getDB: '.$loc.' unknown');
 		}
